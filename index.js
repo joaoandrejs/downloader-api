@@ -9,7 +9,7 @@ app.get('/download', async (req, res) => {
   if (!videoURL) {
     return res.status(400).send('No URL provided');
   }
-
+  
   // Execute o script Python
   exec(`python3 downloader.py ${videoURL}`, (error, stdout, stderr) => {
     if (error) {
