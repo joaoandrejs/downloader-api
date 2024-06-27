@@ -1,3 +1,7 @@
+//https://soundcloud.com/arthur-nunes-321417046/derxan-musica-pra-fumar-balao?si=557c8ef327454eb6901003bec381014d&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing
+//https://www.youtube.com/watch?v=dLRA1lffWBw
+//https://x.com/marinz1nha/status/1806090138771984449
+
 const express = require('express');
 const axios = require('axios');
 const app = express();
@@ -19,7 +23,8 @@ app.get('/download', async (req, res) => {
         
         let attachment = await MediaDownloader(url, res);
         
-        return res.header('Content-Disposition', `attachment; filename="${attachment.filename}"`);
+        // res.header('Content-Disposition', `attachment; filename="${attachment.filename}"`);
+        res.json({ download_url: `https://example.com/download?url=${encodeURIComponent(url)}` });
 
     } catch (error) {
         res.status(400).json({ error: error.message });
