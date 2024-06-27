@@ -9,7 +9,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@sasmeee/igdl": "^1.0.0",
+    "@tobyg74/tiktok-api-dl": "^1.1.4",
+    "axios": "^1.7.2",
     "express": "^4.19.2",
+    "https": "^1.0.0",
+    "soundcloud-downloader": "^1.0.0",
+    "twitter-api-v2": "^1.17.1",
+    "twitter-downloader": "^1.1.7",
     "ytdl-core": "^4.11.5"
   }
 }
