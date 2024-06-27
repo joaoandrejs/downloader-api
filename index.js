@@ -1,33 +1,29 @@
 const express = require('express');
-const { exec } = require('child_process');
-
 const app = express();
+const { spawn } = require('child_process');
 
-app.get('/download', async (req, res) => {
-  const videoURL = req.query.url;
+app.get('/download', (req, res) => {
+    const url = req.query.url;
 
-  if (!videoURL) {
-    return res.status(400).send('No URL provided');
-  }
-  
-  // Execute o script Python
-  exec(`python3 downloader.py ${videoURL}`, (error, stdout, stderr) => {
-    if (error) {
-        console.error(`Erro ao executar o comando: ${error.message}`);
-        return res.status(500).json({ error: 'Erro ao baixar o vídeo' });
-    }
-    if (stderr) {
-        console.error(`Erro no stderr: ${stderr}`);
-        return res.status(500).json({ error: 'Erro ao baixar o vídeo' });
-    }
+    // Executa o script Python para baixar o arquivo
+    const python = spawn('python', ['downloader.py', url]);
 
-    console.log(`Saída do comando: ${stdout}`);
-    res.json({ message: 'Vídeo baixado com sucesso' });
-  });
-}
-);
+    python.stdout.on('data', (data) => {
+        console.log('Python stdout:', data.toString());
+        res.send(data.toString());
+    });
+
+    python.stderr.on('data', (data) => {
+        console.error('Python stderr:', data.toString());
+        res.status(500).send(data.toString());
+    });
+
+    python.on('close', (code) => {
+        console.log(`Python processo encerrado com código ${code}`);
+    });
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Servidor rodando em: ${PORT}`);
+    console.log(`Servidor rodando na porta ${PORT}`);
 });

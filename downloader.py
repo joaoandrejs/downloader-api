@@ -22,12 +22,8 @@ def download_youtube_video(url, file_format='mp4'):
         else:
             stream = yt.streams.get_highest_resolution()
         
-        file_size = stream.filesize
-        
-        # Faz o download do arquivo.
         file_path = stream.download(output_path=download_dir)
         
-        # Caso o formato solicitado seja mp3, converta o arquivo.
         if file_format == 'mp3':
             convert_to_mp3(file_path)
 
