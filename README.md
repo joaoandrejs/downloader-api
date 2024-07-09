@@ -1,8 +1,22 @@
 # Video Downloader API
+ API para download de vídeos
 
-API para download de vídeos do YouTube, SoundCloud, Instagram, TikTok e Twitter.
+### Sites suportados:
+- YouTube
+- Instagram
+- TikTok
+- Twitter
+- SoundCloud
 
 ## Instalação
+
+```bash
+git clone https://github.com/joaoandrejs/downloader-api
+```
+
+```bash
+cd downloader-api
+```
 
 ```bash
 npm install
@@ -14,10 +28,34 @@ npm install
 node index.js
 ```
 
-# Endpoints:
+## Teste a aplicação:
 
-## Download:
-`/api/download?url=https://...`
+```bash
+curl http://localhost:3000/
+```
+- Resposta: App is running...
 
-## Puxar informações:
-`/api/get-info?url=https://...`
+
+# Rspostas:
+`curl http://localhost:3000/api/getinfo?url=...`
+- JSON retornado com as informações do vídeo
+```js
+{
+    author: {
+        name: "",
+        id: "",
+        description: ""
+    },
+    video: {
+        url: "",
+        title: "",
+        description: "",
+        thumbnail: "",
+        lengthSeconds: "",
+        viewCount: ""
+    }
+}
+```
+
+`curl http://localhost:3000/api/download?url=...`
+- Retorna um arquivo ".mp4" para vídeos e ".mp3" para áudios
